@@ -5,7 +5,7 @@ export default function Header() {
         <Head>
             <title>Fwoom</title>
             <meta name="description" content="2 person video calling" />
-            <link rel="icon" href="/favicon.ico" />
+            <link rel="icon" href="/tv.ico" />
         </Head>
     )
 }

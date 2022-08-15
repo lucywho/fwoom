@@ -1,9 +1,17 @@
+:root {
+    --zinc-900: #111827;
+    --red-800: #991b1b;
+    --sky-600: #0284c7;
+    --orange-300: #fdba74;
+    --emerald-200: #a7f3d0;
+}
 html,
 body {
     padding: 0;
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background: var(--zinc-900);
 }
 
 a {
@@ -13,6 +21,11 @@ a {
 
 * {
     box-sizing: border-box;
+}
+
+.button {
+    background-color: var(--red-800);
+    color: var(--orange-300);
 }
 
 @media (prefers-color-scheme: dark) {
