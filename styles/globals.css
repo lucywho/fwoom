@@ -1,7 +1,7 @@
 :root {
     --zinc-900: #111827;
     --red-800: #991b1b;
-    --sky-600: #0284c7;
+    --sky-400: #0284c7;
     --orange-300: #fdba74;
     --emerald-200: #a7f3d0;
 }
@@ -21,6 +21,17 @@ a {
 * {
     box-sizing: border-box;
     background: var(--zinc-900);
+}
+
+ol {
+    display: block !important;
+    list-style-type: decimal !important;
+    margin-top: 1em !important;
+    padding-left: 2.5rem !important;
+}
+
+li {
+    padding-bottom: 1rem;
 }
 
 .button {
