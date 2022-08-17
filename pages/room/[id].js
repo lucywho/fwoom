@@ -1,3 +1,4 @@
+import Link from "next/link"
 import Script from "next/script"
 import { useRouter } from "next/router"
 
@@ -6,13 +7,20 @@ import Gohome from "components/Gohome"
 export default function Room() {
     const router = useRouter()
     const { id } = router.query
+    let peer
+    let inviteUrl
+
+    if (typeof window !== undefined) {
+        inviteUrl = window.location.href
+    }
 
     return (
         <>
             <Script
                 src="https://unpkg.com/peerjs@1.4.5/dist/peerjs.min.js"
                 onLoad={async () => {
-                    const peer = new Peer(`room-${id}-first`)
+                    peer = new Peer(`room-${id}-first`)
+                    console.log("first peer: ", peer)
 
                     const localStream =
                         await navigator.mediaDevices.getUserMedia({
@@ -32,27 +40,45 @@ export default function Room() {
                     })
                 }}
             />
-            <h1 className="mt-20 text-center text-3xl uppercase font-black text-orange-300">
-                welcome to your chatroom
+            <h1 className="mt-10 text-center text-3xl font-black text-orange-300">
+                welcome to chat number{" "}
+                <span className="text-sky-400">{id}</span>
             </h1>
-            <p className="mt-20 mb-20 text-center text-3xl text-emerald-200">
-                Share this link to invite others to join the room: <br />
+
+            <div className="mt-10 mb-10 text-center text-2xl text-emerald-200">
+                share this link to invite someone else to join in:{" "}
                 <a
-                    className="text-sky-600 hover:underline"
+                    className="text-sky-400 hover:underline"
                     href={`/room/${id}/join`}
                 >
-                    http://localhost:3000/room/{id}/join
+                    {inviteUrl} <br />
                 </a>
-            </p>
-            <div className="mt-4 text-center text-2xl  text-orange-300">
-                room id: {id}
-            </div>
-            <div className="mt-10 flex border w-2/3 mx-auto">
-                <video id="local" autoPlay playsInline muted></video>
-                <video id="remote" autoPlay playsInline></video>
+                <button
+                    className="text-orange-300 hover:underline mt-1"
+                    onClick={() => navigator.clipboard.writeText(inviteUrl)}
+                >
+                    copy link to clipboard
+                </button>
             </div>
 
-            <Gohome />
+            <div className="mt-6 flex w-3/4 mx-auto justify-center">
+                <video
+                    id="local"
+                    className="border-2 border-sky-400 rounded-2xl w-1/2"
+                    autoPlay
+                    playsInline
+                    muted
+                ></video>
+                <video
+                    id="remote"
+                    className="ml-2 border-2 border-red-800 rounded-2xl w-1/2"
+                    autoPlay
+                    playsInline
+                ></video>
+            </div>
+            <a onClick={() => peer.destroy()}>
+                <Gohome />
+            </a>
         </>
     )
 }
